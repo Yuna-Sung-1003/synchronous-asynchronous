@@ -15,14 +15,14 @@ const getCat = async () => {
   await sleep(3000); //3초
   return "야옹";
 };
-//힘수들 호출, 하나씩 처리중
+
+//힘수들 한꺼번에 처리 promiseAll
+//실제 실행되는 시간은 3초(고양이가 마지막)
 async function process() {
-  const dog = await getDog();
-  console.log(dog);
-  const rabbit = await getRabbit();
-  console.log(rabbit);
-  const cat = await getCat();
-  console.log(cat);
+  const start = Date.now(); //작업이 걸린시간
+  const results = await Promise.all([getDog(), getRabbit(), getCat()]);
+  console.log(Date.now() - start);
+  console.log(results);
 }
 
 process();
