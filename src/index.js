@@ -18,11 +18,18 @@ const getCat = async () => {
 
 //힘수들 한꺼번에 처리 promiseAll
 //실제 실행되는 시간은 3초(고양이가 마지막)
+//배열의 결과물을 각각 다른 변수로 꺼내주고싶을때
 async function process() {
-  const start = Date.now(); //작업이 걸린시간
-  const results = await Promise.all([getDog(), getRabbit(), getCat()]);
-  console.log(Date.now() - start);
-  console.log(results);
+  const [dog, rabbit, cat] = await Promise.all([
+    getDog(),
+    getRabbit(),
+    getCat()
+  ]);
+
+  // 배열 비구조할당
+  console.log(dog);
+  console.log(rabbit);
+  console.log(cat);
 }
 
 process();
