@@ -1,9 +1,14 @@
 function work() {
-  const start = Date.now(); //현재 날짜를 숫자형태로 나타냄
-  for (let i = 0; i < 1000000000; i++) {}
-  const end = Date.now();
-  console.log(end - start + "ms"); // 얼마나 걸렸는가, 숫자는 ms 단위, 1000ms : 1초
+  //setTimeout:함수내에서 하고자하는 작업이 백그라운드에서 수행되기에, 영향을 주지 않기에 동시 다른 작업 가능
+  setTimeout(() => {
+    const start = Date.now();
+    for (let i = 0; i < 1000000000; i++) {}
+    const end = Date.now();
+    console.log(end - start + "ms");
+  }, 0); //0ms 이후에 실행, 4번째로 실행
 }
 
-work(); // 이까지 작업이 끝나면 밑에 작업으로 넘어감
-console.log("다음작업");
+console.log("작업시작"); //1번째로 실행
+
+work(); //0ms 이후 2번째로 실행
+console.log("다음작업"); // for 루프 도는 동안 3번째 실행
