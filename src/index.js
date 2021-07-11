@@ -1,19 +1,14 @@
-//Callback
-//Work 이후의 작업을 추가하고싶을때, callback 을 파라미터로 넘겨주기
-function work(callback) {
+const myPromise = new Promise((resolve, reject) => {
   setTimeout(() => {
-    const start = Date.now();
-    for (let i = 0; i < 1000000000; i++) {}
-    const end = Date.now();
-    console.log(end - start + "ms"); //4
-    callback(end - start); //얼마나 걸렸는가
-  }, 0);
-}
-
-console.log("작업시작"); //1
-work((ms) => {
-  // 2실행되면서 위 work함수가 실행,루프 돌아가는중
-  console.log("작업이 끝났어요!"); //5
-  console.log(ms + "ms 걸렸다고 해요"); //end - start(ms) 를 함수 내부에서 받아와 나타냄
+    // resolve("result");  성공할 경우
+    reject(new Error()); //실패할 경우
+  }, 1000); //성공할 때 실행 1초후 실행
 });
-console.log("다음작업"); //3
+//promise 작업 후 해야할 작업
+myPromise
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((e) => {
+    console.log(e);
+  });
