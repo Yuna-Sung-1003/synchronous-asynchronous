@@ -20,16 +20,8 @@ const getCat = async () => {
 //실제 실행되는 시간은 3초(고양이가 마지막)
 //배열의 결과물을 각각 다른 변수로 꺼내주고싶을때
 async function process() {
-  const [dog, rabbit, cat] = await Promise.all([
-    getDog(),
-    getRabbit(),
-    getCat()
-  ]);
-
-  // 배열 비구조할당
-  console.log(dog);
-  console.log(rabbit);
-  console.log(cat);
+  const first = await Promise.race([getDog(), getRabbit(), getCat()]);
+  console.log(first);
 }
 
 process();
