@@ -1,25 +1,12 @@
-function increaseAndPrint(n) {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const value = n + 1;
-      if (value === 5) {
-        const error = new Error();
-        error.name = "ValueFiveError";
-        reject(error);
-        return;
-      }
-      console.log(value);
-      resolve(value);
-    }, 1000);
-  });
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms)); //특정 ms 가 끝난 이후에 작업끝
 }
-increaseAndPrint(0)
-  .then(increaseAndPrint)
-  .then(increaseAndPrint)
-  .then(increaseAndPrint)
-  .then(increaseAndPrint)
-  .then(increaseAndPrint)
-  .then(increaseAndPrint)
-  .catch((e) => {
-    console.log(e);
-  });
+
+//앞부분에 async 붙여려주기
+async function process() {
+  console.log("안녕하세요");
+  //promise 앞에는  await
+  await sleep(1000); //1초동안 기다림
+  console.log("반가워요");
+}
+process();
