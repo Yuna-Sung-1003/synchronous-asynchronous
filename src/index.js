@@ -1,14 +1,25 @@
-const myPromise = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    // resolve("result");  성공할 경우
-    reject(new Error()); //실패할 경우
-  }, 1000); //성공할 때 실행 1초후 실행
-});
-//promise 작업 후 해야할 작업
-myPromise
-  .then((result) => {
-    console.log(result);
-  })
+function increaseAndPrint(n) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const value = n + 1;
+      if (value === 5) {
+        const error = new Error();
+        error.name = "ValueFiveError";
+        reject(error);
+        return;
+      }
+      console.log(value);
+      resolve(value);
+    }, 1000);
+  });
+}
+increaseAndPrint(0)
+  .then(increaseAndPrint)
+  .then(increaseAndPrint)
+  .then(increaseAndPrint)
+  .then(increaseAndPrint)
+  .then(increaseAndPrint)
+  .then(increaseAndPrint)
   .catch((e) => {
     console.log(e);
   });
