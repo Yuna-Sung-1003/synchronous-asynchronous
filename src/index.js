@@ -1,19 +1,27 @@
-//Callback
-//Work 이후의 작업을 추가하고싶을때, callback 을 파라미터로 넘겨주기
-function work(callback) {
-  setTimeout(() => {
-    const start = Date.now();
-    for (let i = 0; i < 1000000000; i++) {}
-    const end = Date.now();
-    console.log(end - start + "ms"); //4
-    callback(end - start); //얼마나 걸렸는가
-  }, 0);
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms)); //특정 ms 가 끝난 이후에 작업끝
 }
 
-console.log("작업시작"); //1
-work((ms) => {
-  // 2실행되면서 위 work함수가 실행,루프 돌아가는중
-  console.log("작업이 끝났어요!"); //5
-  console.log(ms + "ms 걸렸다고 해요"); //end - start(ms) 를 함수 내부에서 받아와 나타냄
-});
-console.log("다음작업"); //3
+//화살표 함수로 async 만들고 싶을때, 함수 만들기
+const getDog = async () => {
+  await sleep(1000); //1초
+  return "멍멍";
+};
+const getRabbit = async () => {
+  await sleep(500); //0.5초
+  return "깡총";
+};
+const getCat = async () => {
+  await sleep(3000); //3초
+  return "야옹";
+};
+
+//힘수들 한꺼번에 처리 promiseAll
+//실제 실행되는 시간은 3초(고양이가 마지막)
+//배열의 결과물을 각각 다른 변수로 꺼내주고싶을때
+async function process() {
+  const first = await Promise.race([getDog(), getRabbit(), getCat()]);
+  console.log(first);
+}
+
+process();
